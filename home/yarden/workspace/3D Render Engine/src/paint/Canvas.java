@@ -4,13 +4,18 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 
 import javax.swing.JPanel;
+import javax.swing.RepaintManager;
+
+import main.Main;
 
 public class Canvas extends JPanel {
     
     private static Canvas instance;
-    private static int width, height;
+    public static int width, height;
     private static BufferedImage image;
     
     /**
@@ -30,7 +35,8 @@ public class Canvas extends JPanel {
      */
     public static Canvas getInstance(){
         if(instance == null){
-            instance = new Canvas(800, 600);
+            //instance = new Canvas(Main.WIDTH, Main.HEIGHT);
+            instance = new Canvas(800, 800);
         }
         return instance;
     }
@@ -41,8 +47,26 @@ public class Canvas extends JPanel {
      * @param y
      * @param color
      */
-    public static void set(int x, int y, Color colour){
+    public void set(int x, int y, Color colour){
         image.setRGB(x, y, colour.getRGB());
+    }
+    
+    public void flipVertically(){
+       for(int i=0;i<width;i++){
+          for(int j=0;j<height/2;j++){
+             try{
+                 int temp = image.getRGB(i, j);
+                 image.setRGB(i, j, image.getRGB(i, height-j));
+                 image.setRGB(i, height-j, temp);
+             }catch(ArrayIndexOutOfBoundsException e){
+                 //TODO: remove hack try-catch and figure out bounds properly
+             }
+          }
+       }
+    }
+    
+    public static void refresh(){
+        instance.repaint();
     }
     
     @Override
@@ -56,6 +80,13 @@ public class Canvas extends JPanel {
      */
     public static BufferedImage getImage() {
         return image;
+    }
+    
+    public static BufferedImage deepCopy(BufferedImage bi) {
+        ColorModel cm = bi.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bi.copyData(null);
+        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 
 }

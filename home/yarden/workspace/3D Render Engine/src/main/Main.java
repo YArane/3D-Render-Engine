@@ -17,13 +17,16 @@ import paint.Line;
 
 public class Main extends JFrame {
     
-    private static final int WIDTH = 800;
-    private static final int HEIGHT = 600;
+    public static final int WIDTH = 800;
+    public static final int HEIGHT = 800;
+    
+    private static String frame;
 
     /**
      * Constructor
      */
-    public Main() {
+    public Main(String frame) {
+        this.frame = frame;
         initUI();
     }
 
@@ -33,10 +36,8 @@ public class Main extends JFrame {
     private void initUI() {
 
         add(Canvas.getInstance());
-        Line.draw(100, 100, 400, 500, new Color(200, 150, 200));
-        Line.draw(100, 500, 400, 100, new Color(50, 150, 80));
-
-        setTitle("3D Render Engine");
+        
+        setTitle(this.frame);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null); // (Center)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,9 +52,10 @@ public class Main extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Main m = new Main();
+                Main m = new Main("3D Render Engine");
                 m.setVisible(true);
             }
         });
     }
+    
 }

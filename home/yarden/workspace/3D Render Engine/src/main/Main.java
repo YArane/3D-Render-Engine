@@ -18,7 +18,7 @@ import paint.Line;
 public class Main extends JFrame {
     
     public static final int WIDTH = 800;
-    public static final int HEIGHT = 800;
+    public static final int HEIGHT = 600;
     
     private static String frame;
 

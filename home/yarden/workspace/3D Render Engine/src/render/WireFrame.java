@@ -66,6 +66,11 @@ public class WireFrame {
         Canvas.getInstance().flipVertically();
     }
     
+    /**
+     * Fills a triangle represented by each face
+     * @param filename
+     * @param color
+     */
     public static void fill(String filename, Color color){
         ModelData vao = OBJFileLoader.loadOBJ(filename); 
         

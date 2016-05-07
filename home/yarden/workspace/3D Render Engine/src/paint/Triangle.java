@@ -14,6 +14,7 @@ public class Triangle {
      * @param color
      */
     public static void draw(Vector2f vertices[], Color color){
+        // convert triangle vertices to screen coordinates
         for(int j=0;j<3;j++){
             int x0 = (int)((vertices[j].x + 1.0)* Canvas.height / 2.0);
             int y0 = (int)((vertices[j].y + 1.0)* Canvas.width / 2.0);
@@ -27,11 +28,17 @@ public class Triangle {
     }
     
     
+    /**
+     * Rasterizes the input triangle with the input colour
+     * @param vertices
+     * @param color
+     */
     public static void fill(Vector2f vertices[], Color color){
         Vector2f boundingBoxMin = new Vector2f(Canvas.width-1, Canvas.height-1);
         Vector2f boundingBoxMax = new Vector2f(0, 0);
         Vector2f clamp = new Vector2f(Canvas.width-1, Canvas.height-1);
 
+        // find bounding box
         for(int i=0;i<3;i++){
             boundingBoxMin.x = Math.max(0, Math.min(boundingBoxMin.x, vertices[i].x));
             boundingBoxMin.y = Math.max(0, Math.min(boundingBoxMin.y, vertices[i].y));
@@ -40,10 +47,13 @@ public class Triangle {
         }
         
         Vector2f p = new Vector2f();
+        // for every pixel in the bounding box
         for(p.x = boundingBoxMin.x;p.x<=boundingBoxMax.x;p.x++){
             for(p.y = boundingBoxMin.y;p.y<=boundingBoxMax.y;p.y++){
                 Vector3f barycentricCoord = calcBarycentricCoord(vertices, p);
-                if(barycentricCoord.x < 0 || barycentricCoord.y < 0 || barycentricCoord.z < 0) continue;
+                // check whether the point is inside the triangle
+                if(barycentricCoord.x < 0 || barycentricCoord.y < 0 || barycentricCoord.z < 0) 
+                    continue;
                 Canvas.getInstance().set((int)p.x, (int)p.y, color);
             }
         }
@@ -60,7 +70,7 @@ public class Triangle {
         Vector3f vector2 = new Vector3f(vertices[2].y-vertices[0].y, vertices[1].y - vertices[0].y, vertices[0].y - p.y);
         Vector3f crossProduct  = VectorOperations.crossProduct(vector1, vector2);
         
-        // triangle is flat
+        // triangle is flat, don't care (i.e. not points inside).
         if(Math.abs(crossProduct.z) < 1)
             return new Vector3f(-1, 1, 1);
 

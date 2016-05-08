@@ -1,5 +1,6 @@
 package math;
 
+import containers.Vector2f;
 import containers.Vector3f;
 
 public class VectorOperations {
@@ -26,6 +27,19 @@ public class VectorOperations {
      */
     public static Vector3f subtract(Vector3f vector1, Vector3f vector2){
         return new Vector3f(vector1.x - vector2.x, vector1.y - vector2.y, vector1.z - vector2.z);
+    }
+    
+    /**
+     * Returns the identical set of input vector2f to vector3f with the z component set to 1
+     * @param vectors
+     * @return
+     */
+    public static Vector3f[] upDimensions(Vector2f[] vectors){
+        Vector3f[] copy = new Vector3f[vectors.length];
+        for(int i=0;i<vectors.length;i++){
+            copy[i] = new Vector3f(vectors[i].x, vectors[i].y, 1);
+        }
+        return copy;
     }
     
 }

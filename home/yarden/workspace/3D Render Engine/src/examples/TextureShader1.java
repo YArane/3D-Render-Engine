@@ -2,28 +2,35 @@ package examples;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.io.IOException;
 
 import containers.Vector3f;
 import main.Main;
 import paint.Line;
 import render.WireFrame;
 import shader.FlatShader;
+import shader.TextureShader;
 
-public class Shader1 extends Main{
-    public Shader1(){
-        super("Flat Shader - Example 1");
+public class TextureShader1 extends Main{
+    public TextureShader1(){
+        super("Texture Shader - Example 3");
         method1();
     }
 
     public void method1(){
-        FlatShader.shade("res/african_head.obj", Color.RED, new Vector3f(0, 0, -1));
+        try {
+            TextureShader.shade("res/african_head.obj", new Vector3f(0, 0f, -1));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
     
     public static void main(String[] args){
         EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                Main m = new Shader1();
+                Main m = new TextureShader1();
                 m.setVisible(true);
             }
         });

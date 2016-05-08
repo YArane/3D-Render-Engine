@@ -31,6 +31,8 @@ public class OBJFileLoader{
 		List<Vector3f> normals = new ArrayList<Vector3f>();
 		List<Integer> indices = new ArrayList<Integer>();
 		List<Vector3f> faces = new ArrayList<Vector3f>(); 
+		List<Vector3f> textureIndicies = new ArrayList<Vector3f>(); 
+		
 		try {
 			while (true) {
 				line = reader.readLine();
@@ -47,6 +49,7 @@ public class OBJFileLoader{
 					try{
 					Vector2f texture = new Vector2f((float) Float.valueOf(currentLine[1]),
 							(float) Float.valueOf(currentLine[2]));
+					//System.out.println(texture);
 					textures.add(texture);
 					}catch(java.lang.NumberFormatException e){
 					   System.err.println(e); 
@@ -69,6 +72,8 @@ public class OBJFileLoader{
 				String[] vertex3 = currentLine[3].split("/");
 				// in wavefront obj, all indicies start at 1, not 0
 				faces.add(new Vector3f(Integer.parseInt(vertex1[0])-1, Integer.parseInt(vertex2[0])-1, Integer.parseInt(vertex3[0])-1));
+				textureIndicies.add(new Vector3f(Integer.parseInt(vertex1[1])-1, Integer.parseInt(vertex2[1])-1, Integer.parseInt(vertex3[1])-1));
+				//System.out.println((Integer.parseInt(vertex1[1])-1) + ", " + (Integer.parseInt(vertex2[1])-1));
 			    //processVertex(vertex1, vertices, indices);
 				//processVertex(vertex2, vertices, indices);
 				//processVertex(vertex3, vertices, indices);
@@ -84,12 +89,13 @@ public class OBJFileLoader{
 		float[] normalsArray = new float[vertices.size() * 3];
 		float furthest = convertDataToArrays(vertices, textures, normals, verticesArray,
 				texturesArray, normalsArray);
+	    
+		texturesArray = convertTextureCoordsToArray(textures);
 		int[] indicesArray = convertIndicesListToArray(indices);
 		int[] facesArray = convertFacesListToArray(faces);
+		int[] textureIndiciesArray = convertFacesListToArray(textureIndicies);
 		
-		//printTexturesArray(texturesArray);
-		
-		ModelData data = new ModelData(verticesArray, texturesArray, normalsArray, indicesArray, facesArray);
+		ModelData data = new ModelData(verticesArray, texturesArray, normalsArray, indicesArray, facesArray, textureIndiciesArray);
 		return data;
 	}
 	
@@ -97,7 +103,6 @@ public class OBJFileLoader{
 		for(int i=0;i<textures.length;i++){
 			System.out.println(textures[i]);
 		}
-	
 	}
 
 	private static void processVertex(String[] vertex, List<Vertex> vertices, List<Integer> indices) {
@@ -113,6 +118,15 @@ public class OBJFileLoader{
 			dealWithAlreadyProcessedVertex(currentVertex, textureIndex, normalIndex, indices,
 					vertices);
 		}
+	}
+	
+	private static float[] convertTextureCoordsToArray(List<Vector2f> textureCoords){
+	    float[] array = new float[textureCoords.size()*2];
+	    for(int i=0;i<textureCoords.size();i++){
+	        array[2*i] = textureCoords.get(i).x;
+	        array[2*i+1] = textureCoords.get(i).y;
+	    }
+	    return array;	    
 	}
 
 	private static int[] convertIndicesListToArray(List<Integer> indices) {
@@ -132,6 +146,15 @@ public class OBJFileLoader{
 	   }
 	   return facesArray;
 	}
+	
+	private static int[] convertTexturesListToArray(List<Vector2f> textures){
+	       int[] texturesArray = new int[textures.size()*2];
+	       for(int i=0;i<textures.size();i++){
+	          texturesArray[i*2] = (int) textures.get(i).x;
+	          texturesArray[i*2+1] = (int) textures.get(i).y;
+	       }
+	       return texturesArray;
+	    }
 
 	private static float convertDataToArrays(List<Vertex> vertices, List<Vector2f> textures,
 			List<Vector3f> normals, float[] verticesArray, float[] texturesArray,
@@ -143,8 +166,8 @@ public class OBJFileLoader{
 				furthestPoint = currentVertex.getLength();
 			}
 			Vector3f position = currentVertex.getPosition();
-			//Vector2f textureCoord = textures.get(currentVertex.getTextureIndex());
-			//Vector3f normalVector = normals.get(currentVertex.getNormalIndex());
+			/*Vector2f textureCoord = textures.get(currentVertex.getTextureIndex());
+			Vector3f normalVector = normals.get(currentVertex.getNormalIndex());*/
 			verticesArray[i * 3] = position.x;
 			verticesArray[i * 3 + 1] = position.y;
 			verticesArray[i * 3 + 2] = position.z;
@@ -156,7 +179,7 @@ public class OBJFileLoader{
 		}
 		return furthestPoint;
 	}
-
+	
 	private static void dealWithAlreadyProcessedVertex(Vertex previousVertex, int newTextureIndex,
 			int newNormalIndex, List<Integer> indices, List<Vertex> vertices) {
 		if (previousVertex.hasSameTextureAndNormal(newTextureIndex, newNormalIndex)) {

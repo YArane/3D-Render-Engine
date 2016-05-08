@@ -8,7 +8,8 @@ Note, this engine is soley for educational purposes in order to gain insight on 
 **[Line segments](#fun-with-line-segments)**  
 **[Triangles](#fun-with-triangles)**  
 **[Wireframes](#wireframes)**  
-**[Shading](#shading)**
+**[Shading](#shading)**  
+**[Textures](#textures)**
 
 ## Fun with line segments ##
 Only pixels who fit the equation of the line are drawn. Leads to holes in steep lines.
@@ -50,4 +51,18 @@ Rasterize a triangle represented by each face in the .obj file
 ### Shading ###
 Flat shading: shade each polygon relative to the angle between the ploygon's normal vector and the direction of light
 ![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/Shader1.png?raw=true "Flat Shading")
+
+Flat shading with Z-Buffering: solves the visibility problem using a depth buffer
+![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/Shader2.png?raw=true "Z-Buffering")
+
+### Textures ###
+Direct uv-mapping. Each polygon filled with a solid colour from the diffused texture.
+![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TextureShader1.png?raw=true "Texture Shading")
+
+Interpolated uv-mapping. Each polygon filled with an interpolated colour from its vertices using barycentric coordinates.
+![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TextureShader2.png?raw=true "Interpolating Shading")
+
+Interpolated uv-mapping with lighting. Each polygon filled with an interpolated colour from its vertices using barycentric coordinates, and then multiplied by the light intensity.
+![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TextureShader3.png?raw=true "Interpolating Shading (lighted)")
+
 

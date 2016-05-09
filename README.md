@@ -65,4 +65,6 @@ Interpolated uv-mapping. Each polygon filled with an interpolated colour from it
 Interpolated uv-mapping with lighting. Each polygon filled with an interpolated colour from its vertices using barycentric coordinates, and then multiplied by the light intensity.
 ![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TextureShader3.png?raw=true "Interpolating Shading (lighted)")
 
+Gouraud Shading: Compute the light intensity per vertex instead of per face. Then linearly interpolate intensities using barycentric coordinates.
+![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/GouraudShader.png?raw=true "Interpolating Shading (lighted)")
 

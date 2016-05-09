@@ -2,6 +2,7 @@ package paint;
 
 import java.awt.Color;
 
+import shader.GouraudShading;
 import shader.TextureShader;
 import math.VectorOperations;
 import containers.Vector2f;
@@ -131,7 +132,7 @@ public class Triangle {
                 p.z += vertices[2].z * barycentricCoord.z;
                 if(zBuffer[(int)p.x][(int)p.y] < p.z){
                    zBuffer[(int)p.x][(int)p.y] = p.z; 
-                   Color color = TextureShader.calcUVMap(barycentricCoord);
+                   Color color = GouraudShading.calcUVMap(barycentricCoord);
                    Canvas.getInstance().set((int)p.x, (int)p.y, color);
                 }
             }

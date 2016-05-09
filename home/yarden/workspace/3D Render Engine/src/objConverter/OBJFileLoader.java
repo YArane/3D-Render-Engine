@@ -32,6 +32,7 @@ public class OBJFileLoader{
 		List<Integer> indices = new ArrayList<Integer>();
 		List<Vector3f> faces = new ArrayList<Vector3f>(); 
 		List<Vector3f> textureIndicies = new ArrayList<Vector3f>(); 
+		List<Vector3f> normalIndicies = new ArrayList<Vector3f>(); 
 		
 		try {
 			while (true) {
@@ -73,6 +74,7 @@ public class OBJFileLoader{
 				// in wavefront obj, all indicies start at 1, not 0
 				faces.add(new Vector3f(Integer.parseInt(vertex1[0])-1, Integer.parseInt(vertex2[0])-1, Integer.parseInt(vertex3[0])-1));
 				textureIndicies.add(new Vector3f(Integer.parseInt(vertex1[1])-1, Integer.parseInt(vertex2[1])-1, Integer.parseInt(vertex3[1])-1));
+				normalIndicies.add(new Vector3f(Integer.parseInt(vertex1[2])-1, Integer.parseInt(vertex2[2])-1, Integer.parseInt(vertex3[2])-1));
 				//System.out.println((Integer.parseInt(vertex1[1])-1) + ", " + (Integer.parseInt(vertex2[1])-1));
 			    //processVertex(vertex1, vertices, indices);
 				//processVertex(vertex2, vertices, indices);
@@ -91,11 +93,13 @@ public class OBJFileLoader{
 				texturesArray, normalsArray);
 	    
 		texturesArray = convertTextureCoordsToArray(textures);
+		normalsArray = convertNormalsToArray(normals);
 		int[] indicesArray = convertIndicesListToArray(indices);
 		int[] facesArray = convertFacesListToArray(faces);
 		int[] textureIndiciesArray = convertFacesListToArray(textureIndicies);
+		int[] normalIndiciesArray = convertFacesListToArray(normalIndicies);
 		
-		ModelData data = new ModelData(verticesArray, texturesArray, normalsArray, indicesArray, facesArray, textureIndiciesArray);
+		ModelData data = new ModelData(verticesArray, texturesArray, normalsArray, indicesArray, facesArray, textureIndiciesArray, normalIndiciesArray);
 		return data;
 	}
 	
@@ -128,6 +132,16 @@ public class OBJFileLoader{
 	    }
 	    return array;	    
 	}
+	
+	private static float[] convertNormalsToArray(List<Vector3f> normals){
+        float[] array = new float[normals.size()*3];
+        for(int i=0;i<normals.size();i++){
+            array[3*i] = normals.get(i).x;
+            array[3*i+1] = normals.get(i).y;
+            array[3*i+2] = normals.get(i).z;
+        }
+        return array;       
+    }
 
 	private static int[] convertIndicesListToArray(List<Integer> indices) {
 		int[] indicesArray = new int[indices.size()];

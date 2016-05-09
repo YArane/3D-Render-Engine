@@ -11,6 +11,7 @@ public class ModelData implements Serializable{
 	private int[] indices;
 	private int[] faces;
 	private int[] textureIndicies;
+	private int[] normalIndicies;
 	private float furthestPoint;
 
 	public ModelData(float[] vertices, float[] textureCoords, float[] normals, int[] indices,
@@ -38,8 +39,22 @@ public class ModelData implements Serializable{
         this.textureIndicies = textureIndicies;
     }
 	
+	public ModelData(float[] vertices, float[] textureCoords, float[] normals, int[] indices, int[] faces, int[] textureIndicies, int[] normalIndicies) {
+        this.vertices = vertices;
+        this.textureCoords = textureCoords;
+        this.normals = normals;
+        this.indices = indices;
+        this.faces = faces;
+        this.textureIndicies = textureIndicies;
+        this.normalIndicies = normalIndicies;
+    }
+	
 	public int[] getTextureIndicies(){
 	    return textureIndicies;
+	}
+	
+	public int[] getNormalIndicies(){
+	    return normalIndicies;
 	}
 	
 	public float[] getVertices() {

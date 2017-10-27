@@ -13,14 +13,15 @@ Note, this engine is soley for educational purposes in order to gain insight on 
 
 ## Fun with line segments ##
 Only pixels who fit the equation of the line are drawn. Leads to holes in steep lines.
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/LineSegments1.png?raw=true "Primitive Method")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/LineSegments1.png?raw=true "Primitive Method")
+
 
 Aha! First check to see if the line is steep, and then draw the line. Much improvement.
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/LineSegments2.png?raw=true "Robust Method")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/LineSegments2.png?raw=true "Robust Method")
 
 ## Fun with triangles ##
 Rasterizing triangles using barycentric coordinates.
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TriangleRasterization.png?raw=true "Barycentric Coordinates")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/TriangleRasterization.png?raw=true "Barycentric Coordinates")
 
 ## Wireframes ##
 ### Reading waveform .obj files###
@@ -40,31 +41,31 @@ f 24/1/24 25/2/25 26/3/26
 ### Rendering ###
 
 Draw a line segment for every two neighbouring vertices in the .obj file
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/WireFrame1.png?raw=true "Line Segments")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/WireFrame1.png?raw=true "Line Segments")
 
 Draw a triangle represented by each face in the .obj file
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/WireFrame2.png?raw=true "Triangles")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/WireFrame2.png?raw=true "Triangles")
 
 Rasterize a triangle represented by each face in the .obj file
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/WireFrame3.png?raw=true "Rasterized Triangles")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/WireFrame3.png?raw=true "Rasterized Triangles")
 
 ### Shading ###
 Flat shading: shade each polygon relative to the angle between the ploygon's normal vector and the direction of light
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/Shader1.png?raw=true "Flat Shading")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/Shader1.png?raw=true "Flat Shading")
 
 Flat shading with Z-Buffering: solves the visibility problem using a depth buffer
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/Shader2.png?raw=true "Z-Buffering")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/Shader2.png?raw=true "Z-Buffering")
 
 ### Textures ###
 Direct uv-mapping. Each polygon filled with a solid colour from the diffused texture.
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TextureShader1.png?raw=true "Texture Shading")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/TextureShader1.png?raw=true "Texture Shading")
 
 Interpolated uv-mapping. Each polygon filled with an interpolated colour from its vertices using barycentric coordinates.
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TextureShader2.png?raw=true "Interpolating Shading")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/TextureShader2.png?raw=true "Interpolated Shading")
 
 Interpolated uv-mapping with lighting. Each polygon filled with an interpolated colour from its vertices using barycentric coordinates, and then multiplied by the light intensity.
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/TextureShader3.png?raw=true "Interpolating Shading (lighted)")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/TextureShader3.png?raw=true "Interpolated Shading (lighted)")
 
 Gouraud Shading: Compute the light intensity per vertex instead of per face. Then linearly interpolate intensities using barycentric coordinates.
-![Alt text](/home/yarden/workspace/3D Render Engine/res/examples/GouraudShader.png?raw=true "Interpolating Shading (lighted)")
+![alt text](https://raw.githubusercontent.com/YArane/3D-Render-Engine/master/home/yarden/workspace/3D%20Render%20Engine/res/examples/GouraudShader.png?raw=true "Gouraud Shading (lighted)")
 
